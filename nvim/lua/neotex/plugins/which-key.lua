@@ -115,7 +115,7 @@ return {
         -- l = { "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", "LSP" },
         -- m = { "<cmd>MarkdownPreview<CR>", "markdown preview" },
         m = { "<cmd>TermExec cmd='ssh brastmck@eofe10.mit.edu'<CR>", "mit ssh" },
-        p = { "<cmd>TermExec cmd='python %:p:r.py'<CR>", "python" },
+        p = { "<cmd>TermExec cmd='python3 %:p:r.py'<CR>", "python" },
         -- P = { "<cmd>!python %:p:r.py<CR>", "python" },
         r = { "<cmd>VimtexErrors<CR>", "report errors" },
         u = { "<cmd>cd %:p:h<CR>", "update cwd" },
@@ -219,7 +219,7 @@ return {
       -- MARKDOWN MAPPINGS
       m = {
         name = "MARKDOWN",
-        v = { "<cmd>Slides<CR>", "view slides" },
+        v = { "<cmd>TermExec cmd='okular %:p:r.md'<CR>", "view document" },
       },
       S = {
         name = "SESSIONS",
