@@ -87,7 +87,7 @@ return {
       nowait = true,  -- use `nowait` when creating keymaps
       prefix = "<leader>",
       mode = { "n", "v" },
-      b = { "<cmd>VimtexCompile<CR>", "build" },
+      b = { "<cmd>VimtexCompileSS<CR>", "build" },
       c = { "<cmd>vert sb<CR>", "create split" },
       -- k = { "<cmd>clo<CR>", "kill split" },
       d = { "<cmd>update! | bdelete!<CR>", "delete buffer" },
@@ -227,21 +227,21 @@ return {
         d = { "<cmd>SessionManager delete_session<CR>", "delete" },
         l = { "<cmd>SessionManager load_session<CR>", "load" },
       },
-      n = {
-        name = "NIXOS",
-        d = { "<cmd>TermExec cmd='nix develop'<CR><C-w>j", "develop" },
-        -- f = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.config/nixos/'<CR><C-w>j", "flake" },
-        g = { "<cmd>TermExec cmd='nix-collect-garbage --delete-older-than 15d'<CR><C-w>j", "garbage" },
-        -- g = { "<cmd>TermExec cmd='nix-collect-garbage -d'<CR><C-w>j", "garbage" },
-        p = { "<cmd>TermExec cmd='vivaldi https://search.nixos.org/packages' open=0<CR>", "packages" },
-        m = { "<cmd>TermExec cmd='vivaldi https://mynixos.com' open=0<CR>", "my-nixos" },
-        r = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.dotfiles/'<CR><C-w>l", "rebuild flake" },
-        h = { "<cmd>TermExec cmd='home-manager switch --flake ~/.dotfiles/'<CR><C-w>l", "home-manager" },
-        -- r = { "<cmd>TermExec cmd='home-manager switch'<CR><C-w>j", "home rebuild" },
-        -- r = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.config/home-manager/#nandi'<CR><C-w>j", "home rebuild" },
-        -- r = { "<cmd>TermExec cmd='home-manager switch --flake ~/.config/home-manager/'<CR><C-w>j", "rebuild" },
-        u = { "<cmd>TermExec cmd='nix flake update'<CR><C-w>j", "update" },
-      },
+      --n = {
+      --  name = "NIXOS",
+      --  d = { "<cmd>TermExec cmd='nix develop'<CR><C-w>j", "develop" },
+      --  -- f = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.config/nixos/'<CR><C-w>j", "flake" },
+      --  g = { "<cmd>TermExec cmd='nix-collect-garbage --delete-older-than 15d'<CR><C-w>j", "garbage" },
+      --  -- g = { "<cmd>TermExec cmd='nix-collect-garbage -d'<CR><C-w>j", "garbage" },
+      --  p = { "<cmd>TermExec cmd='vivaldi https://search.nixos.org/packages' open=0<CR>", "packages" },
+      --  m = { "<cmd>TermExec cmd='vivaldi https://mynixos.com' open=0<CR>", "my-nixos" },
+      --  r = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.dotfiles/'<CR><C-w>l", "rebuild flake" },
+      --  h = { "<cmd>TermExec cmd='home-manager switch --flake ~/.dotfiles/'<CR><C-w>l", "home-manager" },
+      --  -- r = { "<cmd>TermExec cmd='home-manager switch'<CR><C-w>j", "home rebuild" },
+      --  -- r = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.config/home-manager/#nandi'<CR><C-w>j", "home rebuild" },
+      --  -- r = { "<cmd>TermExec cmd='home-manager switch --flake ~/.config/home-manager/'<CR><C-w>j", "rebuild" },
+      --  u = { "<cmd>TermExec cmd='nix flake update'<CR><C-w>j", "update" },
+      --},
       p = {
         name = "PANDOC",
         w = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.docx'<CR>", "word" },
@@ -258,41 +258,46 @@ return {
         d = { "<Plug>(nvim-surround-delete)", "delete" },
         c = { "<Plug>(nvim-surround-change)", "change" },
       },
-      t = {
-        name = "TEMPLATES",
-        p = {
-          "<cmd>read ~/.config/nvim/templates/PhilPaper.tex<CR>",
-          "PhilPaper.tex",
-        },
-        l = {
-          "<cmd>read ~/.config/nvim/templates/Letter.tex<CR>",
-          "Letter.tex",
-        },
-        g = {
-          "<cmd>read ~/.config/nvim/templates/Glossary.tex<CR>",
-          "Glossary.tex",
-        },
-        h = {
-          "<cmd>read ~/.config/nvim/templates/HandOut.tex<CR>",
-          "HandOut.tex",
-        },
-        b = {
-          "<cmd>read ~/.config/nvim/templates/PhilBeamer.tex<CR>",
-          "PhilBeamer.tex",
-        },
-        s = {
-          "<cmd>read ~/.config/nvim/templates/SubFile.tex<CR>",
-          "SubFile.tex",
-        },
-        r = {
-          "<cmd>read ~/.config/nvim/templates/Root.tex<CR>",
-          "Root.tex",
-        },
-        m = {
-          "<cmd>read ~/.config/nvim/templates/MultipleAnswer.tex<CR>",
-          "MultipleAnswer.tex",
-        },
-      },
+      --t = {
+      --  name = "TEMPLATES",
+      --  p = {
+      --    "<cmd>read ~/.config/nvim/templates/PhilPaper.tex<CR>",
+      --    "PhilPaper.tex",
+      --  },
+      --  l = {
+      --    "<cmd>read ~/.config/nvim/templates/Letter.tex<CR>",
+      --    "Letter.tex",
+      --  },
+      --  g = {
+      --    "<cmd>read ~/.config/nvim/templates/Glossary.tex<CR>",
+      --    "Glossary.tex",
+      --  },
+      --  h = {
+      --    "<cmd>read ~/.config/nvim/templates/HandOut.tex<CR>",
+      --    "HandOut.tex",
+      --  },
+      --  b = {
+      --    "<cmd>read ~/.config/nvim/templates/PhilBeamer.tex<CR>",
+      --    "PhilBeamer.tex",
+      --  },
+      --  s = {
+      --    "<cmd>read ~/.config/nvim/templates/SubFile.tex<CR>",
+      --    "SubFile.tex",
+      --  },
+      --  r = {
+      --    "<cmd>read ~/.config/nvim/templates/Root.tex<CR>",
+      --    "Root.tex",
+      --  },
+      --  m = {
+      --    "<cmd>read ~/.config/nvim/templates/MultipleAnswer.tex<CR>",
+      --    "MultipleAnswer.tex",
+      --  },
+      --},
+      V = {
+        name = "VENV-SELECTOR",
+        s = {"<cmd>VenvSelect<cr>", "select venv"},
+        c = {"<cmd>VenvSelectCached<cr>", "select cached venv"},
+      };
     },
   },
   config = function(_, opts)

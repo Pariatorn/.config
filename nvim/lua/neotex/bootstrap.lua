@@ -17,7 +17,7 @@ require("lazy").setup({
   { import = "neotex.plugins.lsp" } -- lsp plugins directory
 }, {
   install = {
-    colorscheme = { "gruvbox" },
+    colorscheme = { "moonbow" },
   },
   checker = {
     enabled = true,
