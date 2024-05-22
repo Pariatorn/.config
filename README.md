@@ -102,12 +102,14 @@ order:
     brew doctor
     brew upgrade
 
-If Homebrew has not been installed, you may install it by running the
-following two commands. Note that if you don't have `xcode` installed,
-this may take a while but is essential to what follows.
+If Homebrew has not been installed, you may install it by running the following two commands.
+Note that if you don't have `xcode` installed (determined by the first command below), installing it may take a while but is essential for what follows.
 
-    xcode-select --install
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+xcode-select --version
+xcode-select --install
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
 Although optional, I highly recommend swapping the `CapsLock` and `Esc`
 keys by opening `System Preferences -> Keyboard` and making the
@@ -122,8 +124,9 @@ things around in `System Preferences -> Keyboard`. Whatever you do, I
 recommend finding something comfortable before you begin using your
 NeoVim config, committing its key-bindings to memory.
 
-## [Fish](https://fishshell.com/)
+## [Fish](https://fishshell.com/) (Optional)
 
+Installing `Fish` is optional but will make working in the terminal a lot easier (including autocomplete).
 To install the Fish shell, run:
 
     brew install fish
@@ -165,15 +168,29 @@ the following:
 If you aren't already comfy with vim-like modes, the vi-mode in Fish may
 be cumbersome, and best to avoid during the installation.
 
+### Extras
+
+Optionally, you can install `zoxide` which will help you move around in the terminal with less friction:
+
+```
+brew install zoxide
+```
+
+If `Homebrew` has any trouble recognizing paths inside `Fish`, you can run the following:
+
+```
+/opt/homebrew/bin/brew shellenv >> ~/.config/fish/config.fish # Ensures that brew paths are recognised inside fish
+```
+
+
 ## Dependencies
 
-Check to see that you have `git` installed by running:
+Check to see that you have `git` installed by running the first command below, running the second if it is not installed already:
 
-    git --version
-
-If Git is not installed, run:
-
-    brew install git
+```
+git --version
+brew install git
+```
 
 Next install LazyGit by running:
 
@@ -216,13 +233,15 @@ installation process detailed below.
 Lastly, check to see if the following are installed with `--version` as
 above and install whatever is missing:
 
-    brew install fzf
-    brew install ripgrep
-    brew install pandoc
-    brew install pandoc-plot
-    brew install npm
-    brew install wget
-    sudo pip3 install neovim-remote
+```
+brew install fzf
+brew install ripgrep
+brew install pandoc
+brew install pandoc-plot
+brew install npm
+brew install wget
+brew install neovim-remote
+```
 
 ## [NeoVim](https://neovim.io/)
 
@@ -1418,5 +1437,5 @@ You can return to defaults by running:
 
     setxkbmap
 
-Once you achieve the desired result, reboot and confirm that the
-mappings are running as desired.
+Once you achieve the desired result, reboot and confirm that the mappings are running as desired.
+
