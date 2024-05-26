@@ -8,7 +8,7 @@ return {
       options = {
         mode = "buffers",
         separator_style = "slant",
-        close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+        close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
         diagnostics = false,           -- OR: | "nvim_lsp" 
         diagnostics_update_in_insert = false,
         show_tab_indicators = false,
