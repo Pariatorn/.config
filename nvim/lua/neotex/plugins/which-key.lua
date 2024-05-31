@@ -282,11 +282,6 @@ return {
       --    "MultipleAnswer.tex",
       --  },
       --},
-      V = {
-        name = "VENV-SELECTOR",
-        s = {"<cmd>VenvSelect<cr>", "select venv"},
-        c = {"<cmd>VenvSelectCached<cr>", "select cached venv"},
-      };
     },
   },
   config = function(_, opts)
