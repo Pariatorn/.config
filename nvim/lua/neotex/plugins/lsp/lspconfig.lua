@@ -38,8 +38,7 @@ return {
 		--   filetypes = { "html", "typescriptreact", "javascriptreact" }, -- , "css", "sass", "scss", "less", "svelte"
 		-- })
 
-		-- configure python server
-		-- diagnostics done in ruff
+		-- configure python server with ruff diagnostics
 		lspconfig["pyright"].setup({
 			capabilities = default,
 			settings = {

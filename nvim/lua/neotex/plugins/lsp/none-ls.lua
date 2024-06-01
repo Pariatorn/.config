@@ -2,7 +2,7 @@ return {
 	"nvimtools/none-ls.nvim", -- configure formatters & linters
 	lazy = true,
 	ft = { "py", "html", "js", "ts", "lua" },
-	event = { "BufReadPre", "BufNewFile" }, -- to enable uncomment this
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"jay-babu/mason-null-ls.nvim",
 		"williamboman/mason.nvim",
@@ -12,7 +12,7 @@ return {
 		local mason_null_ls = require("mason-null-ls")
 		mason_null_ls.setup({
 			-- "prettier", -- prettier formatter
-			"stylua",   -- lua formatter
+			"stylua", -- lua formatter
 			"isort", -- python formatter
 			"black", -- python formatter
 			"ruff_lsp", -- python linter
@@ -23,11 +23,8 @@ return {
 		-- for conciseness
 		local null_ls = require("null-ls")
 		local null_ls_utils = require("null-ls.utils")
-		local formatting = null_ls.builtins.formatting -- to setup formatters
-		local diagnostics = null_ls.builtins.diagnostics -- to setup linters
-
-		-- to setup format on save
-		-- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+		local formatting = null_ls.builtins.formatting
+		local diagnostics = null_ls.builtins.diagnostics
 
 		-- configure null_ls
 		null_ls.setup({
@@ -45,35 +42,7 @@ return {
 				formatting.isort,
 				formatting.black,
 				-- diagnostics.pylint, -- ruff_lsp in usage
-				-- .with({
-				--   extra_args = { "--config-path", vim.fn.expand("~/.nix-profile/bit/z3") },
-				-- }),
-				-- diagnostics.eslint_d.with({ -- TURN ON FOR JAVA SCRIPT
-				--   -- js/ts linter
-				--   condition = function(utils)
-				--     return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs" }) -- only enable if root has .eslintrc.js or .eslintrc.cjs
-				--   end,
-				-- }),
 			},
-			-- -- configure format on save: uncomment augroup above
-			-- on_attach = function(current_client, bufnr)
-			--   if current_client.supports_method("textDocument/formatting") then
-			--     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			--     vim.api.nvim_create_autocmd("BufWritePre", {
-			--       group = augroup,
-			--       buffer = bufnr,
-			--       callback = function()
-			--         vim.lsp.buf.format({
-			--            -- only use null-ls for formatting instead of lsp server
-			--           filter = function(client)
-			--             return client.name == "null-ls"
-			--           end,
-			--           async = false
-			--         })
-			--       end,
-			--     })
-			--   end
-			-- end,
 		})
 	end,
 }
