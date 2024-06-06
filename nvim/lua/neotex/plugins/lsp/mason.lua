@@ -34,6 +34,7 @@ return {
 				-- "emmet_ls",
 				"pyright",
 				"ruff_lsp",
+				"yamlls"
 				-- "tsserver",
 				-- "lua_ls",   -- seems to cause trouble
 				-- "cssls",
@@ -48,7 +49,7 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				-- "prettier", -- prettier formatter seems to be required
+				"prettier", -- prettier formatter seems to be required
 				"stylua", -- lua formatter
 				"isort", -- python formatter
 				"black", -- python formatter

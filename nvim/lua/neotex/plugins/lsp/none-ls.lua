@@ -6,12 +6,12 @@ return {
 	dependencies = {
 		"jay-babu/mason-null-ls.nvim",
 		"williamboman/mason.nvim",
-		-- "MunifTanjim/prettier.nvim",
+		"MunifTanjim/prettier.nvim",
 	},
 	config = function()
 		local mason_null_ls = require("mason-null-ls")
 		mason_null_ls.setup({
-			-- "prettier", -- prettier formatter
+			"prettier", -- prettier formatter
 			"stylua", -- lua formatter
 			"isort", -- python formatter
 			"black", -- python formatter
@@ -34,10 +34,10 @@ return {
 			sources = {
 				--  to disable file types use
 				--  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
-				-- formatting.prettier.with({ TURN ON FOR JAVA SCRIPT
-				--   extra_filetypes = { "svelte" },
-				--   disabled_filetypes = { "txt" },
-				-- }),                -- js/ts formatter
+				formatting.prettier.with({ -- TURN ON FOR JAVA SCRIPT
+				   extra_filetypes = { "svelte" },
+				   disabled_filetypes = { "txt" },
+				}),                -- js/ts formatter
 				formatting.stylua, -- lua formatter
 				formatting.isort,
 				formatting.black,
