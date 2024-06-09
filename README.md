@@ -18,16 +18,11 @@ NOTE: I have recently (Jan 2024) migrated to Lazy package manager from
 Packer and refactored the config accordingly. It is running
 `NeoVim v0.9.5` really fast with some nice features, including:
 
--   LSP Autocompletion (VimTex, Buffer, Spell, Snippets, Python, Lua,
-    etc.)
--   Linting and Formatting (Python, Lua, Markdown, etc.)
--   BibExport (creating a local `.bib` file from all citations that
-    occur in your `.tex` document)
--   AnnotatePDF (creates a local `.md` file with highlights and notes
-    from citation under the cursor)
--   Pandoc (convert between file formats)
--   Telescope (search citations, files, words, etc.)
--   And lots more!
+![Screenshot of the configuration](images/screenshot_cite.png)
+
+Running the unstable release of `NeoVim` may lead to errors, and so is discouraged.
+If there are features or plugins that you are aware of and would like to see integrated, don't hesitate to submit a feature request in an issue.
+I have not created any new videos so (for now) these [old ones](https://www.youtube.com/watch?v=_Ct2S65kpjQ&list=PLBYZ1xfnKeDRhCoaM4bTFrjCl3NKDBvqk) will have to do if you'd like to see what the previous version looked like.
 
 Running the unstable release of `NeoVim` may lead to errors, and so is
 discouraged. If there are features or plugins that you are aware of and
@@ -49,7 +44,7 @@ get your feedback and help improving these instructions for others.
 installation process, feel free to open an issue if one does not exist
 already.) Windows installations will not be supported here.
 
-## A complete configuration for writing LaTeX documents with [NeoVim](https://neovim.io).
+## A complete configuration for writing LaTeX documents with [NeoVim](https://neovim.io)
 
 The following sections provide installation instructions for Mac, Arch,
 OpenSuse Tumbleweed and Debian operating systems. In the
@@ -71,12 +66,12 @@ to track changes and collaborate with others.
 
 ## Table of Contents
 
-1.  [Mac OS Installation](#Mac-OS-Installation)
-2.  [Arch Linux Installation](#Arch-Linux-Installation)
-3.  [OpenSuse Tumbleweed Installation](#OpenSuse-Tumbleweed-Installation)
-4.  [Debian Linux Insallation](#Debian-Linux-Installation)
-5.  [Git](#Git)
-6.  [Remapping Keys](#Remapping-Keys)
+1. [Mac OS Installation](#mac-os-installation)
+2. [Arch Linux Installation](#arch-linux-installation)
+3. [OpenSuse Tumbleweed Installation](#opensuse-tumbleweed-installation)
+4. [Debian Linux Insallation](#debian-linux-installation)
+5. [Git](#git)
+6. [Remapping Keys](#remapping-keys)
 
 The software covered includes NeoVim, Git, Zathura, Zotero, Fish, and
 Kitty. I will also include information for globally remapping keys to
@@ -105,11 +100,11 @@ order:
 If Homebrew has not been installed, you may install it by running the following two commands.
 Note that if you don't have `xcode` installed (determined by the first command below), installing it may take a while but is essential for what follows.
 
-```
-xcode-select --version
-xcode-select --install
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+    ```
+    xcode-select --version
+    xcode-select --install
+    /bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh>)"
+    ```
 
 Although optional, I highly recommend swapping the `CapsLock` and `Esc`
 keys by opening `System Preferences -> Keyboard` and making the
@@ -172,25 +167,24 @@ be cumbersome, and best to avoid during the installation.
 
 Optionally, you can install `zoxide` which will help you move around in the terminal with less friction:
 
-```
-brew install zoxide
-```
+    ```
+    brew install zoxide
+    ```
 
 If `Homebrew` has any trouble recognizing paths inside `Fish`, you can run the following:
 
-```
-/opt/homebrew/bin/brew shellenv >> ~/.config/fish/config.fish # Ensures that brew paths are recognised inside fish
-```
-
+    ```
+    /opt/homebrew/bin/brew shellenv >> ~/.config/fish/config.fish # Ensures that brew paths are recognised inside fish
+    ```
 
 ## Dependencies
 
 Check to see that you have `git` installed by running the first command below, running the second if it is not installed already:
 
-```
-git --version
-brew install git
-```
+    ```
+    git --version
+    brew install git
+    ```
 
 Next install LazyGit by running:
 
@@ -233,15 +227,15 @@ installation process detailed below.
 Lastly, check to see if the following are installed with `--version` as
 above and install whatever is missing:
 
-```
-brew install fzf
-brew install ripgrep
-brew install pandoc
-brew install pandoc-plot
-brew install npm
-brew install wget
-brew install neovim-remote
-```
+    ```
+    brew install fzf
+    brew install ripgrep
+    brew install pandoc
+    brew install pandoc-plot
+    brew install npm
+    brew install wget
+    brew install neovim-remote
+    ```
 
 ## [NeoVim](https://neovim.io/)
 
@@ -523,7 +517,6 @@ See the [Cheat
 Sheet](https://github.com/benbrastmckie/.config/blob/master/CheatSheet.md)
 for the Tmux window commands.
 
-
 # Arch Linux Installation
 
 This installation will begin with necessities and conclude with details
@@ -720,7 +713,6 @@ To delete the welcome message, run:
 
     set -U fish_greeting ""
 
-
 # OpenSuse Tumbleweed Installation
 
 This installation will begin with necessities and conclude with details
@@ -913,7 +905,6 @@ the Fish shell by running the following:
 To delete the welcome message, run:
 
     set -U fish_greeting ""
-
 
 # Debian Linux Installation
 
@@ -1193,6 +1184,7 @@ You are now read use NeoVim in either Kitty or else Alacritty and Tmux
 complete with the Fish shell.
 
 # Git
+
 ## [Git](https://git-scm.com/) (General)
 
 Whether you forked my config or not, the following steps will help you
@@ -1337,8 +1329,8 @@ your user icon in the top right, navigate to
 `Setting --> Developer settings --> Personal -- Tokens` and create a new
 access token, setting:
 
--   No expiration date
--   Select `repo` in scope/permissions
+- No expiration date
+- Select `repo` in scope/permissions
 
 After generating the token, you must copy the PAT, pasting it into a
 temporary file saved on your computer. You can now add your PAT by
@@ -1438,4 +1430,3 @@ You can return to defaults by running:
     setxkbmap
 
 Once you achieve the desired result, reboot and confirm that the mappings are running as desired.
-
