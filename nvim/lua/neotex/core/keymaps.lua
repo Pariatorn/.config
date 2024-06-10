@@ -60,6 +60,8 @@ keymap("n", "<A-l>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers
 keymap("n", "<TAB>", ":bnext<CR>", opts)
 keymap("n", "<S-TAB>", ":bprevious<CR>", opts)
+keymap("n", "<BS>", ":BufferLineMoveNext<CR>", opts)
+keymap("n", "<S-BS>", ":BufferLineMovePrev<CR>", opts)
 
 -- Drag lines
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==", opts)
