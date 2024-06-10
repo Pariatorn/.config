@@ -15,6 +15,8 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		local default = cmp_nvim_lsp.default_capabilities()
 
+		local util = require("lspconfig/util")
+
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		local signs = { Error = "", Warn = "", Hint = "󰠠", Info = "" }
 		for type, icon in pairs(signs) do
@@ -77,6 +79,7 @@ return {
 				},
 			},
 		})
+
 		lspconfig["yamlls"].setup({
 			settings = {
 				yaml = {
@@ -86,9 +89,22 @@ return {
 						url = "",
 					},
 					schemas = {
-						['https://json.schemastore.org/kustomization.json'] = 'kustomization.{yml,yaml}',
-						['https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json'] = 'docker-compose*.{yml,yaml}',
+						["https://json.schemastore.org/kustomization.json"] = "kustomization.{yml,yaml}",
+						["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
 						["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-application.yaml",
+					},
+				},
+			},
+		})
+
+		lspconfig["rust_analyzer"].setup({
+			capabilities = default,
+			filetypes = { "rust" },
+			root_dir = util.root_pattern("Cargo.toml"),
+			settings = {
+				["rust_analyzer"] = {
+					cargo = {
+						allFeatures = true,
 					},
 				},
 			},

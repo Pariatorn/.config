@@ -38,6 +38,7 @@ return {
 				"bibtex",
 				"vimdoc",
 				"norg",
+        		"rust",
 				-- "latex",
 				-- "javascript",
 				-- "typescript",

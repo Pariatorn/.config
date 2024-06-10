@@ -34,7 +34,8 @@ return {
 				-- "emmet_ls",
 				"pyright",
 				"ruff_lsp",
-				"yamlls"
+				"yamlls",
+      			"rust_analyzer",
 				-- "tsserver",
 				-- "lua_ls",   -- seems to cause trouble
 				-- "cssls",
@@ -53,6 +54,7 @@ return {
 				"stylua", -- lua formatter
 				"isort", -- python formatter
 				"black", -- python formatter
+				"codelldb",
 				-- "pylint",   -- python linter, ruff_lsp now in use
 				-- "eslint_d", -- js linter
 			},
