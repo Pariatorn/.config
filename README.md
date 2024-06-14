@@ -66,456 +66,17 @@ to track changes and collaborate with others.
 
 ## Table of Contents
 
+1. [Arch Linux Installation](#arch-linux-installation)
+1. [OpenSuse Tumbleweed Installation](#opensuse-tumbleweed-installation)
+1. [Debian Linux Insallation](#debian-linux-installation)
 1. [Mac OS Installation](#mac-os-installation)
-2. [Arch Linux Installation](#arch-linux-installation)
-3. [OpenSuse Tumbleweed Installation](#opensuse-tumbleweed-installation)
-4. [Debian Linux Insallation](#debian-linux-installation)
-5. [Git](#git)
-6. [Remapping Keys](#remapping-keys)
+1. [Git](#git)
+1. [Remapping Keys](#remapping-keys)
 
 The software covered includes NeoVim, Git, Zathura, Zotero, Fish, and
 Kitty. I will also include information for globally remapping keys to
 [better](https://www.reddit.com/r/vim/comments/lsx5qv/just_mapped_my_caps_lock_to_escape_for_the_first/)
 suit writing LaTeX documents with NeoVim.
-
-# Mac OS Installation
-
-I would start by updating your system so that you don't hit any snags
-along the way. (Or, if you like snags and tired of Mac, then consider
-switching to Linux!) Once you have updated MacOS, open the terminal by
-hitting `Command + Space` and typing 'terminal'. You may check whether
-you already have Homebrew installed by entering the following into the
-terminal:
-
-    brew --version
-
-If Homebrew is installed, it will report which version you have which
-you can update by means of the following commands run separately in
-order:
-
-    brew update
-    brew doctor
-    brew upgrade
-
-If Homebrew has not been installed, you may install it by running the following two commands.
-Note that if you don't have `xcode` installed (determined by the first command below), installing it may take a while but is essential for what follows.
-
-    ```
-    xcode-select --version
-    xcode-select --install
-    /bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh>)"
-    ```
-
-Although optional, I highly recommend swapping the `CapsLock` and `Esc`
-keys by opening `System Preferences -> Keyboard` and making the
-appropriate changes. I also like to change the `Command` key to the
-`Control` key, change the `Control` key to the `Function` key, change
-the `Function` key to the `Option` key, and change the `Option` key to
-the `Command` key if I'm using a Mac. My reasons for doing this is
-ergonomics given which keys I'll be using most often in NeoVim.
-Alternatively, you can make changes to the mappings that I've included
-in the config, though this may take a little more work than swapping
-things around in `System Preferences -> Keyboard`. Whatever you do, I
-recommend finding something comfortable before you begin using your
-NeoVim config, committing its key-bindings to memory.
-
-## [Fish](https://fishshell.com/) (Optional)
-
-Installing `Fish` is optional but will make working in the terminal a lot easier (including autocomplete).
-To install the Fish shell, run:
-
-    brew install fish
-    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-    omf install sashimi
-    cp ~/.config/config-files/config.fish ~/.config/fish/config.fish
-
-To delete the welcome message, run:
-
-    set -U fish_greeting ""
-
-Or add whatever you want between the quotes in the command above. Make
-Fish your default shell by first checking where Fish is installed with:
-
-    which fish
-
-Cut and paste the path and run:
-
-    sudo vim /etc/shells
-
-Once inside vanilla Vim (pre-installed on any Mac) navigate to the
-bottom with `G`, create a new line with `o`, and paste the path with
-`command + shift + v`, or hand type it, and hit `esc` to go back into
-normal mode. Then save and quit with `:wq`. Check to see that you
-succeeded with:
-
-    cat /etc/shells
-
-If the line you included is shown at the end, then proceed to run:
-
-    chsh -s /usr/local/bin/fish
-
-Close the terminal and reopen it to check to see if Fish is running by
-default. If you want to turn on the Vim key-bindings within Fish, run
-the following:
-
-    fish_vi_key_bindings
-
-If you aren't already comfy with vim-like modes, the vi-mode in Fish may
-be cumbersome, and best to avoid during the installation.
-
-### Extras
-
-Optionally, you can install `zoxide` which will help you move around in the terminal with less friction:
-
-    ```
-    brew install zoxide
-    ```
-
-If `Homebrew` has any trouble recognizing paths inside `Fish`, you can run the following:
-
-    ```
-    /opt/homebrew/bin/brew shellenv >> ~/.config/fish/config.fish # Ensures that brew paths are recognised inside fish
-    ```
-
-## Dependencies
-
-Check to see that you have `git` installed by running the first command below, running the second if it is not installed already:
-
-    ```
-    git --version
-    brew install git
-    ```
-
-Next install LazyGit by running:
-
-    brew install jesseduffield/lazygit/lazygit
-
-Install Node if it is not installed already (you can check with
-`node --version` as above), run:
-
-    brew install node
-
-Run the following if Python 3 is absent (you can check with
-`python3 --version`):
-
-    brew install python
-
-Run the following if absent so that you will have formatting for your
-config (written in lua):
-
-    brew install stylua
-    brew install lua-language-server
-
-Install the RobotoMono [Nerd
-Font](https://github.com/ryanoasis/nerd-fonts) with:
-
-    brew tap homebrew/cask-fonts
-    brew install --cask font-roboto-mono-nerd-font
-
-More options can be found
-[here](https://github.com/Homebrew/homebrew-cask-fonts) or by searching
-for Nerd Fonts that can be installed with Homebrew. If you are using the
-default Mac Terminal, you will need to select the font that you just
-installed by navigating through the menu
-`Terminal --> Preferences --> Profiles --> Change Font` and selecting
-RobotoMono or similar. However, I highly recommend installing a better
-terminal as detailed in the last section, providing a faster cleaner
-looking setup which is easy to configure given the config files that I
-have included. Nevertheless, the Mac terminal will do for completing the
-installation process detailed below.
-
-Lastly, check to see if the following are installed with `--version` as
-above and install whatever is missing:
-
-    ```
-    brew install fzf
-    brew install ripgrep
-    brew install pandoc
-    brew install pandoc-plot
-    brew install npm
-    brew install wget
-    brew install neovim-remote
-    ```
-
-## [NeoVim](https://neovim.io/)
-
-Install the most recent version of NeoVim by running:
-
-    brew install neovim
-
-Once the installation is complete, open NeoVim by entering:
-
-    nvim
-
-You can enter normal-mode in NeoVim from any mode by hitting escape. To
-check the health of your NeoVim install, enter command-mode in NeoVim
-from normal mode by hitting `:` and running:
-
-    checkhealth
-
-Wait for the report to finish. If Python 3 reports an error, run the
-following in the terminal (to exit NeoVim, write `:qa!`):
-
-    pip3 install --user pynvim
-
-Continue to run `:checkhealth` in NeoVim, following the instructions
-under the reported errors until all errors are gone (the Python 2 errors
-may be ignored, and similarly for Ruby, Node.js, and Perl). This may
-involve doing some research if errors persist.
-
-You are now ready to pull down the configuration files.
-
-## [Configuration](https://github.com/benbrastmckie/.config)
-
-I recommend forking my config so that you have your own version that you
-can customize for yourself. To do so you will need to make a GitHub
-account if you don't have one already. Then click `Fork` in my GitHub
-config repo in order to copy the repo over to your GitHub. Make yourself
-the owner. There is no need to include other branches besides the master
-branch which will be selected by default.
-
-Once you have forked the repo, you can click the `Code` button in your
-fork of the config repo, selecting SSH, and copying the address which
-you will use below. If you don't have an SSH key set up, then you can
-select HTTPS instead, though you will have to change this to SSH if you
-want to be able to push changes up to your fork of the repo without
-typing in a password every time. See the instructions below to set up a
-SSH key.
-
-If you don't want to fork the repo at all, then click the `Code` button
-in my repo, copying the HTTPS address. Now you are ready to open the
-terminal back up and run the following commands making the appropriate
-substitution:
-
-    cd ~/.config
-    ls -a
-    git init
-    ls -a
-    git remote -v
-    git remote add origin YOUR-OR-MY-ADDRESS
-    git remote -v
-    git pull origin master
-    ls -a
-
-The `ls -a` and `git remote -v` commands are optional but will show you
-what is happening at each stage. In particular, `git pull origin master`
-will pull down the config files into your `~/.config` directory. The
-other git commands add a new git repo, link your local repo to your
-fork, and confirm that the addresses have been added so that you are
-ready to push and pull changes from your fork on GitHub. This will
-permit you keep your config backed up to your GitHub repo and to pull
-your repo down onto other computers if you want to reproduce your
-customized config once you have made changes.
-
-You are now ready to run NeoVim with:
-
-    nvim
-
-Lazy is the package manager and should open automatically, installing
-all the plugins that you will need and various language servers through
-Mason. Once this process finishes, you can quit exit out of Lazy with
-'q', exiting NeoVim with `<space>q` or `:q`. Reopen Neovim and run
-`:checkhealth` troubleshooting any errors with the exception of VimTex
-which will be fixed by the sections below. You can ignore all the
-warnings, but should troubleshoot any errors that persist.
-
-## [LaTeX](https://www.latex-project.org/)
-
-If you are here, you are probably familiar with LaTeX and already have
-it installed. But just in case you haven't installed LaTeX already, you
-can run the following command in order to check to see if it is already
-installed:
-
-    latexmk --version
-
-To install MacTex, you can download the package
-[here](https://www.tug.org/mactex/), or else run the following command:
-
-    brew install --cask mactex
-
-This will take a while. Once it finishes, reboot your computer and run:
-
-    latexmk --version
-
-You should now find that `latexmk` is installed.
-
-## [Skim](https://skim-app.sourceforge.io)
-
-It is important to choose a pdf-viewer that will sync with your LaTeX
-document, and Skim is a good choice for Mac OS. To install Skim, run the
-following commands:
-
-    brew install skim
-    alias skim='/Applications/Skim.app/Contents/MacOS/Skim'
-    funcsave skim
-
-You should now be able to open Skim with the command `skim` inside the
-terminal. Change the automatic refreshing in Skim by opening the `Skim`
-menu and navigating to `Preferences` and selecting the `Sync` tab. Check
-both `Check for file changes` and `Reload automatically`. In the
-`Preset` menu, select custom and set the `Command` to `nvim` with the
-`Arguments` as follows:
-
-    --headless -c "VimtexInverseSearch %l '%f'"
-
-Close the preferences menu and open NeoVim with:
-
-    nvim ~/.config/nvim/lua/user/vimtex.lua
-
-Replace both 'okular' and 'zathura' with 'skim'. Now run `:checkhealth`
-inside NeoVim and scroll to the VimTex section at the bottom to confirm
-that everything is OK.
-
-Create a new file with `<space>e` and hitting `a` once you navigate to
-an appropriate location by using the `j` and `k` to move up and down as
-well as `h` and `l` to expand or collapse directories. Open the new file
-by hitting `Enter` and load a template with `<space>tp`. Build the pdf
-with `<space>b` checking to see if Skim loads. After building, you can
-view locations within the pdf with `<space>v` in NeoVim. Similarly, you
-can locate lines in the LaTeX document with
-`Command + Shift + Left-click` in Skim.
-
-If you want to use Zathura as your primary pdf viewer and only launching
-Skim from the VimTex Context menu, follow the instructions given by
-running the following NeoVim command:
-
-    :h vimtex-faq-zathura-macos
-
-Note that getting Zathura to work with MacOS may be a challenge unless
-someone has figured this out. If you figure out how to do this, I would
-love to expand these instructions so that MacOS users can also enjoy
-Zathura which is fast and highly customizable.
-
-## [Zotero](https://www.zotero.org/)
-
-If you already have Zotero installed but want to sync Zotero with the
-config, then skip to the next paragraph. Otherwise, begin by downloading
-and installing [Zotero](https://www.zotero.org/) along with the
-appropriate plugin for your preferred browser. Find a paper online,
-signing in to the journal as necessary and downloading the pdf manually.
-Now return to the paper on the journal's website and test the browser
-plugin for Zotero which should be displayed in the top right of the
-screen. Note that you can also import .bib libraries with Zotero, though
-it is important to set you citation key format as described below before
-doing so.
-
-Download and install Better BibTex by following
-[these](https://retorque.re/zotero-better-bibtex/installation/)
-instructions. Under `Zotero` in the Zotero menu bar, select
-`Preferences` and open up the `Better BibTex` tab. Under the
-`Citation keys` sub-tab, replace the citation key format
-with `auth.fold + year`. This will make the default citation keys have
-the format `NameYearLetter`, where the `Letter` will increase through
-the alphabet if there are multiple entries for the same author and year.
-If you want to create a different key format, you can find more options
-[here](https://retorque.re/zotero-better-bibtex/citing/#generating-citekeys).
-I also recommend keeping keys unique `across all libraries` and
-permitting non-pinned keys to be `postfixed` which you will select from
-drop-down menus. Now that your citation key format has been set, feel
-free to import any .bib libraries that you might want to use.
-
-Next switch to the `Automatic Export` sub-tab and select `On Change` so
-that your .bib database stays updated when you add bib entries. Close
-the Preferences window, returning to the main Zotero window.
-
-Create the bib and bst directories, and move the .bst bibliography style
-files into the appropriate folder by running the following:
-
-    mkdir -p ~/Library/texmf/bibtex/bib
-    cp -R ~/.config/latex/bst ~/Library/texmf/bibtex
-
-Return to Zotero, right-click the main library folder in the left-most
-column, and select `Export Library`. Under the `Format` drop-down menu,
-select `Better BibTex` and check the `Keep Updated` box.  Save the file
-as `Zotero` (the extension will be added automatically) to
-`~/Library/texmf/bibtex/bib` which you previously created. If you have
-trouble finding the Library directory, you may need to remove the MacOS
-child-locks by opening `Finder`, clicking the `Go` menu, and selecting
-`Go to Folder`. Type `/Users` and then open the directory associated
-with your username. Now go to the `View` menu, select
-`Show View Options`, and check `Show Library Folder`. Go back to Zotero
-and export your library as directed above.
-
-In order to make use of Telescope for searching through your citations,
-change `~/texmf/bibtex/bib/Zotero.bib` to
-`~/Library/texmf/bibtex/bib/Zotero.bib` by first opening the following
-file:
-
-    nvim ~/.config/nvim/lua/user/telescope.lua
-
-After saving and quitting with `<space>q` you are ready to cite files in
-your Zotero database with `<space>fc` as well as autocompleting citation
-keys inside citations contexts like '`\citet{ ... }`{=tex}'. If your
-citation autocomplete does not work but searching for citations with
-`<space>fc` does work, then try clearing the VimTex cache inside NeoVim
-with:
-
-    :VimtexClearCache kpsewhich
-
-This should fix the issue.
-
-## Terminal (Optional)
-
-As an alternative to the stock terminal, I recommend installing either
-[Kitty](https://github.com/kovidgoyal/kitty) or else a combination of
-[Alacritty](https://github.com/alacritty/alacritty) and
-[Tmux](https://github.com/tmux/tmux/wiki). There is nothing wrong with
-installing Kitty in addition to both Alacritty and Tmux, though Kitty is
-a simple all in one solution. Here are all of the commands that you
-might need to explore these options:
-
-    brew install --cask kitty
-    brew install --cask alacritty
-    brew install tmux
-
-If you installed Kitty, move and feel free to edit the following config
-file:
-
-    sudo cp ~/.config/config-files/kitty.conf ~/.config/kitty/kitty.conf
-    nvim ~/.config/kitty/kitty.conf
-
-No changes are required to run `nvim` in Kitty.
-
-If you installed Alacritty and Tmux, move the Tmux configuration file to
-the appropriate location by running:
-
-    sudo cp ~/.config/config-files/alacritty.yml ~/.config/alacritty/alacritty.yml
-    sudo cp ~/.config/config-files/.tmux.conf ~/.tmux.conf
-
-Assuming that you already installed Fish above, you will need to locate
-Fish on your operating system by running the following:
-
-    which fish
-
-The command should return `/usr/local/bin/fish` or something similar.
-Copy the displayed path and run the following:
-
-    nvim ~/.config/alacritty/alacritty.yml
-
-Replace `/usr/bin/fish` with the location of Fish displayed above. You
-can search for 'fish' in `alacritty.yml` with `/` followed by 'fish'.
-You should not need to do this if you decided to use Kitty.
-
-If you want to configure the default window position when you open
-Kitty, you also search for 'LAYOUT' in `kitty.conf`, adjusting the
-default window sizes accordingly. Similarly, search for 'Window
-position' in `alacritty.yml`, setting the `x` and `y` values along with
-the window dimensions which are set just above, or comment out the
-position block by adding `#` in front of those three lines in order to
-assume system defaults upon opening Alacritty. Save and exit. You can
-then open Alacritty/Kitty with `Command + Space` and typing
-'Alacritty'/'Kitty' respectively. If you went with Alacritty, run the
-following to reset Tmux:
-
-    tmux kill-server
-
-Reopen Alacritty to see if Fish is now the default shell. You are now
-read use NeoVim in Kitty or Alacritty+Tmux along with the Fish shell.
-That is, to open NeoVim, open Kitty/Alacritty and type `nvim`.
-
-See the [Cheat
-Sheet](https://github.com/benbrastmckie/.config/blob/master/CheatSheet.md)
-for the Tmux window commands.
 
 # Arch Linux Installation
 
@@ -585,16 +146,13 @@ After rebooting, confirm that LaTeX is installed by running:
 
 ## [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 
-In order for NeoVim to load icons, it will be important to install a
-NerdFont. For simplicity, I have included MesloLGS in `~/.config/fonts`
-which you can now move to the appropriate folder on
-your computer by entering the following in the terminal:
+In order for NeoVim to load icons, it will be important to install a NerdFont.
+For simplicity, I have included RobotoMono in `~/.config/fonts` which you can now move to the appropriate folder on your computer by entering the following in the terminal:
 
     sudo cp -R ~/.config/fonts/RobotoMono/ /usr/share/fonts
 
-If you intend to use the stock terminal, you will need to go into the
-terminal's settings to change the font. You are now ready to write
-LaTex in NeoVim inside the stock terminal.
+If you intend to use the stock terminal, you will need to go into the terminal's settings to change the font to RobotoMono regular.
+You are now ready to write LaTeX in NeoVim inside the stock terminal.
 
 ## [Zathura](https://pwmt.org/projects/zathura/)
 
@@ -777,17 +335,13 @@ After rebooting, confirm that LaTeX is installed by running:
 
 ## [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 
-In order for NeoVim to load icons, it will be important to install a
-NerdFont. For simplicity, I have included MesloLGS in `~/.config/fonts`
-which you can now move to the appropriate folder on
-your computer by entering the following in the terminal:
+In order for NeoVim to load icons, it will be important to install a NerdFont.
+For simplicity, I have included [RobotoMono Nerd](https://www.nerdfonts.com/font-downloads) fonts in `~/.config/fonts` which you can now move to the appropriate folder on your computer by entering the following in the terminal:
 
-    sudo cp -R '~/.config/fonts/MesloLGS NF/' /usr/share/fonts
+    sudo cp -R ~/.config/fonts/RobotoMono /usr/share/fonts/truetype/
 
-Alternatively you can try to install the fonts with opening them and
-selecting install. If you intend to use the stock terminal, you will
-need to go into the terminal's settings to change the font. You are
-now ready to write LaTex in NeoVim inside the stock terminal.
+If you intend to use the stock terminal, you will need to go into the terminal's settings to change the font to `RobotoMono Nerd Font` (regular).
+You are now ready to write LaTeX in NeoVim inside the stock terminal.
 
 ## [Zathura](https://pwmt.org/projects/zathura/)
 
@@ -890,8 +444,8 @@ As an alternative to the stock terminal, I recommend installing
 [Kitty](https://github.com/kovidgoyal/kitty). I also recommend
 using the [Fish](https://fishshell.com/) shell.
 
-    sudo pacman -S kitty
-    sudo pacman -S fish
+    sudo zypper in kitty
+    sudo zypper in fish
 
 If you installed Kitty, you can edit `~/.config/kitty/kitty.conf` if
 desired, but no changes are required to run `nvim` in Kitty.
@@ -1182,6 +736,437 @@ the following:
 
 You are now read use NeoVim in either Kitty or else Alacritty and Tmux
 complete with the Fish shell.
+
+# Mac OS Installation
+
+I would start by updating your system so that you don't hit any snags
+along the way. (Or, if you like snags and tired of Mac, then consider
+switching to Linux!) Once you have updated MacOS, open the terminal by
+hitting `Command + Space` and typing 'terminal'. You may check whether
+you already have Homebrew installed by entering the following into the
+terminal:
+
+    brew --version
+
+If Homebrew is installed, it will report which version you have which
+you can update by means of the following commands run separately in
+order:
+
+    brew update
+    brew doctor
+    brew upgrade
+
+If Homebrew has not been installed, you may install it by running the following two commands.
+Note that if you don't have `xcode` installed (determined by the first command below), installing it may take a while but is essential for what follows.
+
+    ```
+    xcode-select --version
+    xcode-select --install
+    /bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh>)"
+    ```
+
+Although optional, I highly recommend swapping the `CapsLock` and `Esc`
+keys by opening `System Preferences -> Keyboard` and making the
+appropriate changes. I also like to change the `Command` key to the
+`Control` key, change the `Control` key to the `Function` key, change
+the `Function` key to the `Option` key, and change the `Option` key to
+the `Command` key if I'm using a Mac. My reasons for doing this is
+ergonomics given which keys I'll be using most often in NeoVim.
+Alternatively, you can make changes to the mappings that I've included
+in the config, though this may take a little more work than swapping
+things around in `System Preferences -> Keyboard`. Whatever you do, I
+recommend finding something comfortable before you begin using your
+NeoVim config, committing its key-bindings to memory.
+
+## [Fish](https://fishshell.com/) (Optional)
+
+Installing `Fish` is optional but will make working in the terminal a lot easier (including autocomplete).
+To install the Fish shell, run:
+
+    brew install fish
+    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+    omf install sashimi
+    cp ~/.config/config-files/config.fish ~/.config/fish/config.fish
+
+To delete the welcome message, run:
+
+    set -U fish_greeting ""
+
+Or add whatever you want between the quotes in the command above. Make
+Fish your default shell by first checking where Fish is installed with:
+
+    which fish
+
+Cut and paste the path and run:
+
+    sudo vim /etc/shells
+
+Once inside vanilla Vim (pre-installed on any Mac) navigate to the
+bottom with `G`, create a new line with `o`, and paste the path with
+`command + shift + v`, or hand type it, and hit `esc` to go back into
+normal mode. Then save and quit with `:wq`. Check to see that you
+succeeded with:
+
+    cat /etc/shells
+
+If the line you included is shown at the end, then proceed to run:
+
+    chsh -s /usr/local/bin/fish
+
+Close the terminal and reopen it to check to see if Fish is running by
+default. If you want to turn on the Vim key-bindings within Fish, run
+the following:
+
+    fish_vi_key_bindings
+
+If you aren't already comfy with vim-like modes, the vi-mode in Fish may
+be cumbersome, and best to avoid during the installation.
+
+### Extras
+
+Optionally, you can install `zoxide` which will help you move around in the terminal with less friction:
+
+    brew install zoxide
+
+If `Homebrew` has any trouble recognizing paths inside `Fish`, you can run the following:
+
+    /opt/homebrew/bin/brew shellenv >> ~/.config/fish/config.fish # Ensures that brew paths are recognised inside fish
+
+## Dependencies
+
+Check to see that you have `git` installed by running the first command below, running the second if it is not installed already:
+
+    git --version
+    brew install git
+
+Next install LazyGit by running:
+
+    brew install jesseduffield/lazygit/lazygit
+
+Install Node if it is not installed already (you can check with
+`node --version` as above), run:
+
+    brew install node
+
+Run the following if Python 3 is absent (you can check with
+`python3 --version`):
+
+    brew install python
+
+Run the following if absent so that you will have formatting for your
+config (written in lua):
+
+    brew install stylua
+    brew install lua-language-server
+
+Install the RobotoMono [Nerd
+Font](https://github.com/ryanoasis/nerd-fonts) with:
+
+    brew tap homebrew/cask-fonts
+    brew install --cask font-roboto-mono-nerd-font
+
+More options can be found
+[here](https://github.com/Homebrew/homebrew-cask-fonts) or by searching
+for Nerd Fonts that can be installed with Homebrew. If you are using the
+default Mac Terminal, you will need to select the font that you just
+installed by navigating through the menu
+`Terminal --> Preferences --> Profiles --> Change Font` and selecting
+RobotoMono or similar. However, I highly recommend installing a better
+terminal as detailed in the last section, providing a faster cleaner
+looking setup which is easy to configure given the config files that I
+have included. Nevertheless, the Mac terminal will do for completing the
+installation process detailed below.
+
+Lastly, check to see if the following are installed with `--version` as
+above and install whatever is missing:
+
+    brew install fzf
+    brew install ripgrep
+    brew install pandoc
+    brew install pandoc-plot
+    brew install npm
+    brew install wget
+    brew install neovim-remote
+
+## [NeoVim](https://neovim.io/)
+
+Install the most recent version of NeoVim by running:
+
+    brew install neovim
+
+Once the installation is complete, open NeoVim by entering:
+
+    nvim
+
+You can enter normal-mode in NeoVim from any mode by hitting escape. To
+check the health of your NeoVim install, enter command-mode in NeoVim
+from normal mode by hitting `:` and running:
+
+    checkhealth
+
+Wait for the report to finish. If Python 3 reports an error, run the
+following in the terminal (to exit NeoVim, write `:qa!`):
+
+    pip3 install --user pynvim
+
+Continue to run `:checkhealth` in NeoVim, following the instructions
+under the reported errors until all errors are gone (the Python 2 errors
+may be ignored, and similarly for Ruby, Node.js, and Perl). This may
+involve doing some research if errors persist.
+
+You are now ready to pull down the configuration files.
+
+## [Configuration](https://github.com/benbrastmckie/.config)
+
+I recommend forking my config so that you have your own version that you
+can customize for yourself. To do so you will need to make a GitHub
+account if you don't have one already. Then click `Fork` in my GitHub
+config repo in order to copy the repo over to your GitHub. Make yourself
+the owner. There is no need to include other branches besides the master
+branch which will be selected by default.
+
+Once you have forked the repo, you can click the `Code` button in your
+fork of the config repo, selecting SSH, and copying the address which
+you will use below. If you don't have an SSH key set up, then you can
+select HTTPS instead, though you will have to change this to SSH if you
+want to be able to push changes up to your fork of the repo without
+typing in a password every time. See the instructions below to set up a
+SSH key.
+
+If you don't want to fork the repo at all, then click the `Code` button
+in my repo, copying the HTTPS address. Now you are ready to open the
+terminal back up and run the following commands making the appropriate
+substitution:
+
+    cd ~/.config
+    ls -a
+    git init
+    ls -a
+    git remote -v
+    git remote add origin YOUR-OR-MY-ADDRESS
+    git remote -v
+    git pull origin master
+    ls -a
+
+The `ls -a` and `git remote -v` commands are optional but will show you
+what is happening at each stage. In particular, `git pull origin master`
+will pull down the config files into your `~/.config` directory. The
+other git commands add a new git repo, link your local repo to your
+fork, and confirm that the addresses have been added so that you are
+ready to push and pull changes from your fork on GitHub. This will
+permit you keep your config backed up to your GitHub repo and to pull
+your repo down onto other computers if you want to reproduce your
+customized config once you have made changes.
+
+You are now ready to run NeoVim with:
+
+    nvim
+
+Lazy is the package manager and should open automatically, installing
+all the plugins that you will need and various language servers through
+Mason. Once this process finishes, you can quit exit out of Lazy with
+'q', exiting NeoVim with `<space>q` or `:q`. Reopen Neovim and run
+`:checkhealth` troubleshooting any errors with the exception of VimTex
+which will be fixed by the sections below. You can ignore all the
+warnings, but should troubleshoot any errors that persist.
+
+## [LaTeX](https://www.latex-project.org/)
+
+If you are here, you are probably familiar with LaTeX and already have
+it installed. But just in case you haven't installed LaTeX already, you
+can run the following command in order to check to see if it is already
+installed:
+
+    latexmk --version
+
+To install MacTex, you can download the package
+[here](https://www.tug.org/mactex/), or else run the following command:
+
+    brew install --cask mactex
+
+This will take a while. Once it finishes, reboot your computer and run:
+
+    latexmk --version
+
+You should now find that `latexmk` is installed.
+
+## [Skim](https://skim-app.sourceforge.io)
+
+It is important to choose a pdf-viewer that will sync with your LaTeX
+document, and Skim is a good choice for Mac OS. To install Skim, run the
+following commands:
+
+    brew install skim
+    alias skim='/Applications/Skim.app/Contents/MacOS/Skim'
+    funcsave skim
+
+You should now be able to open Skim with the command `skim` inside the
+terminal. Change the automatic refreshing in Skim by opening the `Skim`
+menu and navigating to `Preferences` and selecting the `Sync` tab. Check
+both `Check for file changes` and `Reload automatically`. In the
+`Preset` menu, select custom and set the `Command` to `nvim` with the
+`Arguments` as follows:
+
+    --headless -c "VimtexInverseSearch %l '%f'"
+
+Close the preferences menu and open NeoVim with:
+
+    nvim ~/.config/nvim/lua/user/vimtex.lua
+
+Replace both 'okular' and 'zathura' with 'skim'. Now run `:checkhealth`
+inside NeoVim and scroll to the VimTex section at the bottom to confirm
+that everything is OK.
+
+Create a new file with `<space>e` and hitting `a` once you navigate to
+an appropriate location by using the `j` and `k` to move up and down as
+well as `h` and `l` to expand or collapse directories. Open the new file
+by hitting `Enter` and load a template with `<space>tp`. Build the pdf
+with `<space>b` checking to see if Skim loads. After building, you can
+view locations within the pdf with `<space>v` in NeoVim. Similarly, you
+can locate lines in the LaTeX document with
+`Command + Shift + Left-click` in Skim.
+
+If you want to use Zathura as your primary pdf viewer and only launching
+Skim from the VimTex Context menu, follow the instructions given by
+running the following NeoVim command:
+
+    :h vimtex-faq-zathura-macos
+
+Note that getting Zathura to work with MacOS may be a challenge unless
+someone has figured this out. If you figure out how to do this, I would
+love to expand these instructions so that MacOS users can also enjoy
+Zathura which is fast and highly customizable.
+
+## [Zotero](https://www.zotero.org/)
+
+If you already have Zotero installed but want to sync Zotero with the
+config, then skip to the next paragraph. Otherwise, begin by downloading
+and installing [Zotero](https://www.zotero.org/) along with the
+appropriate plugin for your preferred browser. Find a paper online,
+signing in to the journal as necessary and downloading the pdf manually.
+Now return to the paper on the journal's website and test the browser
+plugin for Zotero which should be displayed in the top right of the
+screen. Note that you can also import .bib libraries with Zotero, though
+it is important to set you citation key format as described below before
+doing so.
+
+Download and install Better BibTex by following
+[these](https://retorque.re/zotero-better-bibtex/installation/)
+instructions. Under `Zotero` in the Zotero menu bar, select
+`Preferences` and open up the `Better BibTex` tab. Under the
+`Citation keys` sub-tab, replace the citation key format
+with `auth.fold + year`. This will make the default citation keys have
+the format `NameYearLetter`, where the `Letter` will increase through
+the alphabet if there are multiple entries for the same author and year.
+If you want to create a different key format, you can find more options
+[here](https://retorque.re/zotero-better-bibtex/citing/#generating-citekeys).
+I also recommend keeping keys unique `across all libraries` and
+permitting non-pinned keys to be `postfixed` which you will select from
+drop-down menus. Now that your citation key format has been set, feel
+free to import any .bib libraries that you might want to use.
+
+Next switch to the `Automatic Export` sub-tab and select `On Change` so
+that your .bib database stays updated when you add bib entries. Close
+the Preferences window, returning to the main Zotero window.
+
+Create the bib and bst directories, and move the .bst bibliography style
+files into the appropriate folder by running the following:
+
+    mkdir -p ~/Library/texmf/bibtex/bib
+    cp -R ~/.config/latex/bst ~/Library/texmf/bibtex
+
+Return to Zotero, right-click the main library folder in the left-most
+column, and select `Export Library`. Under the `Format` drop-down menu,
+select `Better BibTex` and check the `Keep Updated` box.  Save the file
+as `Zotero` (the extension will be added automatically) to
+`~/Library/texmf/bibtex/bib` which you previously created. If you have
+trouble finding the Library directory, you may need to remove the MacOS
+child-locks by opening `Finder`, clicking the `Go` menu, and selecting
+`Go to Folder`. Type `/Users` and then open the directory associated
+with your username. Now go to the `View` menu, select
+`Show View Options`, and check `Show Library Folder`. Go back to Zotero
+and export your library as directed above.
+
+In order to make use of Telescope for searching through your citations,
+change `~/texmf/bibtex/bib/Zotero.bib` to
+`~/Library/texmf/bibtex/bib/Zotero.bib` by first opening the following
+file:
+
+    nvim ~/.config/nvim/lua/user/telescope.lua
+
+After saving and quitting with `<space>q` you are ready to cite files in
+your Zotero database with `<space>fc` as well as autocompleting citation
+keys inside citations contexts like '`\citet{ ... }`{=tex}'. If your
+citation autocomplete does not work but searching for citations with
+`<space>fc` does work, then try clearing the VimTex cache inside NeoVim
+with:
+
+    :VimtexClearCache kpsewhich
+
+This should fix the issue.
+
+## Terminal (Optional)
+
+As an alternative to the stock terminal, I recommend installing either
+[Kitty](https://github.com/kovidgoyal/kitty) or else a combination of
+[Alacritty](https://github.com/alacritty/alacritty) and
+[Tmux](https://github.com/tmux/tmux/wiki). There is nothing wrong with
+installing Kitty in addition to both Alacritty and Tmux, though Kitty is
+a simple all in one solution. Here are all of the commands that you
+might need to explore these options:
+
+    brew install --cask kitty
+    brew install --cask alacritty
+    brew install tmux
+
+If you installed Kitty, move and feel free to edit the following config
+file:
+
+    sudo cp ~/.config/config-files/kitty.conf ~/.config/kitty/kitty.conf
+    nvim ~/.config/kitty/kitty.conf
+
+No changes are required to run `nvim` in Kitty.
+
+If you installed Alacritty and Tmux, move the Tmux configuration file to
+the appropriate location by running:
+
+    sudo cp ~/.config/config-files/alacritty.yml ~/.config/alacritty/alacritty.yml
+    sudo cp ~/.config/config-files/.tmux.conf ~/.tmux.conf
+
+Assuming that you already installed Fish above, you will need to locate
+Fish on your operating system by running the following:
+
+    which fish
+
+The command should return `/usr/local/bin/fish` or something similar.
+Copy the displayed path and run the following:
+
+    nvim ~/.config/alacritty/alacritty.yml
+
+Replace `/usr/bin/fish` with the location of Fish displayed above. You
+can search for 'fish' in `alacritty.yml` with `/` followed by 'fish'.
+You should not need to do this if you decided to use Kitty.
+
+If you want to configure the default window position when you open
+Kitty, you also search for 'LAYOUT' in `kitty.conf`, adjusting the
+default window sizes accordingly. Similarly, search for 'Window
+position' in `alacritty.yml`, setting the `x` and `y` values along with
+the window dimensions which are set just above, or comment out the
+position block by adding `#` in front of those three lines in order to
+assume system defaults upon opening Alacritty. Save and exit. You can
+then open Alacritty/Kitty with `Command + Space` and typing
+'Alacritty'/'Kitty' respectively. If you went with Alacritty, run the
+following to reset Tmux:
+
+    tmux kill-server
+
+Reopen Alacritty to see if Fish is now the default shell. You are now
+read use NeoVim in Kitty or Alacritty+Tmux along with the Fish shell.
+That is, to open NeoVim, open Kitty/Alacritty and type `nvim`.
+
+See the [Cheat
+Sheet](https://github.com/benbrastmckie/.config/blob/master/CheatSheet.md)
+for the Tmux window commands.
 
 # Git
 
