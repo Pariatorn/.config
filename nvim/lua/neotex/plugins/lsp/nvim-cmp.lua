@@ -6,19 +6,16 @@ return {
 		"hrsh7th/cmp-path", -- source for file system paths
 		"L3MON4D3/LuaSnip", -- snippet engine
 		"saadparwaiz1/cmp_luasnip", -- for autocompletion
-		-- "rafamadriz/friendly-snippets", -- useful snippets
-		-- "onsails/lspkind.nvim", -- vs-code like pictograms
 		"hrsh7th/cmp-cmdline",
 		"petertriho/cmp-git",
 		"f3fora/cmp-spell",
 		"micangl/cmp-vimtex",
-		-- "aspeddro/cmp-pandoc.nvim",
 	},
 	config = function()
 		local cmp = require("cmp")
 
 		local luasnip = require("luasnip")
-		--   פּ ﯟ   some other good icons
+
 		local kind_icons = {
 			article = "󰧮",
 			book = "",
@@ -57,6 +54,7 @@ return {
 		cmp.setup({
 			completion = {
 				completeopt = "menu,noselect",
+				-- completeopt = "menuone,preview,noinsert,noselect",
 				keyword_length = 1,
 			},
 			snippet = { -- configure how nvim-cmp interacts with snippet engine
@@ -69,6 +67,9 @@ return {
 				["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
+				-- ["<C-n>"] = cmp.mapping.complete(), -- show completion suggestions
+				-- ["<C-h>"] = cmp.mapping.abort(), -- close completion window
+				-- ["<C-l>"] = cmp.mapping.confirm({ select = false }),
 				["<CR>"] = cmp.mapping.confirm({ select = false }),
 				-- supertab
 				["<Tab>"] = cmp.mapping(function(fallback)
@@ -101,11 +102,15 @@ return {
 				format = function(entry, vim_item)
 					vim_item.kind = string.format("%s", kind_icons[vim_item.kind]) -- Kind icons
 					vim_item.menu = ({
+						-- vimtex = (vim_item.menu ~= nil and vim_item.menu or "[VimTex]"),
+						-- vimtex = test_fn(vim_item.menu, entry.source.name),
 						vimtex = vim_item.menu,
 						luasnip = "[Snippet]",
 						nvim_lsp = "[LSP]",
 						buffer = "[Buffer]",
 						spell = "[Spell]",
+						-- orgmode = "[Org]",
+						-- latex_symbols = "[Symbols]",
 						cmdline = "[CMD]",
 						path = "[Path]",
 					})[entry.source.name]
@@ -140,6 +145,12 @@ return {
 			window = {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
+				-- completion = {
+				--   border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+				-- },
+				-- documentation = {
+				--   border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+				-- },
 			},
 			performance = {
 				trigger_debounce_time = 500,

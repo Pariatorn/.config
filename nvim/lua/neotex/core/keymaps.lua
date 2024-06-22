@@ -11,6 +11,8 @@ vim.g.mapleader = " "
 
 -- Unmappings
 keymap("n", "<C-z>", "<nop>", opts)
+keymap("n", "gc", "<nop>", opts)
+keymap("n", "gcc", "<nop>", opts)
 
 -- Spelling
 vim.keymap.set("n", "<C-s>", function()
