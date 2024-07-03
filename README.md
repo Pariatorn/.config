@@ -7,6 +7,12 @@
 <!--  ╚═╝  ╚═══╝╚══════╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝ -->
 <!-- ``` -->
 <!---->
+
+<div style="display: flex; flex-direction: row;">
+    <img src="images/VimType.png" alt="Typewriter Comic" style="width: 49%;">
+    <img src="images/VimExcavator.png" alt="Excavator Comic" style="width: 49%;">
+</div>
+
 # .config
 
 Fork of benbrastmckie's beautiful neovim config for the usage of neovim
@@ -19,6 +25,9 @@ Packer and refactored the config accordingly. It is running
 `NeoVim v0.9.5` really fast with some nice features, including:
 
 ![Screenshot of the configuration](images/screenshot_cite.png)
+
+<!-- ![Vim Typewriter Comic](images/VimType.png) -->
+<!-- ![Vim Excavator Comic](images/VimExcavator.png) -->
 
 Running the unstable release of `NeoVim` may lead to errors, and so is discouraged.
 If there are features or plugins that you are aware of and would like to see integrated, don't hesitate to submit a feature request in an issue.
