@@ -8,10 +8,10 @@ local d = ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
+local line_begin = require("luasnip.extras.conditions.expand").line_begin
 
-local in_text = function()
-	return vim.fn["vimtex#syntax#in_mathzone"]() ~= 1
-end
+local helpers = require("neotex.core.luasnip-helpers")
+local in_text = helpers.in_text
 
 -- TODO: add templates for figure, table
 return {
@@ -24,8 +24,7 @@ return {
         \end{<>}
       ]],
 			{ i(1), i(0), rep(1) }
-		),
-		{ condition = in_text }
+		)
 	),
 	s(
 		{ trig = "ali", dscr = "Align environment (numbered)" },
@@ -38,7 +37,7 @@ return {
       ]],
 			{ i(0), i(1) }
 		),
-		{ condition = in_text }
+		{ condition = line_begin }
 	),
 	s(
 		{ trig = "alis", dscr = "Align environment (unnumbered)" },
@@ -50,7 +49,7 @@ return {
       ]],
 			{ i(0) }
 		),
-		{ condition = in_text }
+		{ condition = line_begin }
 	),
 
 	s(
@@ -63,7 +62,7 @@ return {
       ]],
 			{ i(0) }
 		),
-		{ condition = in_text }
+		{ condition = line_begin }
 	),
 	s(
 		{ trig = "enum", dscr = "Enumerate environment" },
@@ -75,10 +74,10 @@ return {
       ]],
 			{ i(0) }
 		),
-		{ condition = in_text }
+		{ condition = line_begin }
 	),
 	s(
-		{ trig = "enum", dscr = "Enumerate environment custom label" },
+		{ trig = "enumc", dscr = "Enumerate environment custom label" },
 		fmta(
 			[[
         \begin{enumerate}[\label=<>]
@@ -87,6 +86,6 @@ return {
       ]],
 			{ i(1, "alph*"), i(0) }
 		),
-		{ condition = in_text }
+		{ condition = line_begin }
 	),
 }

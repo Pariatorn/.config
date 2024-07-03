@@ -9,17 +9,15 @@ local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
-local in_mathzone = function()
-	return vim.fn["vimtex#syntax#in_mathzone"]() == 1
-end
-local in_text = function()
-	return vim.fn["vimtex#syntax#in_mathzone"]() ~= 1
-end
+local helpers = require("neotex.core.luasnip-helpers")
+local get_visual = helpers.get_visual
+local in_mathzone = helpers.in_mathzone
+local in_text = helpers.in_text
 
 return {
-	s({ trig = "tit" }, fmta("\\textit{<>}", { i(1) }), { condition = in_text }),
-	s({ trig = "tbf" }, fmta("\\textbf{<>}", { i(1) }), { condition = in_text }),
-	s({ trig = "mrm" }, fmta("\\mathrm{<>}", { i(1) }), { condition = in_mathzone }),
-	s({ trig = "mbf" }, fmta("\\mathbf{<>}", { i(1) }), { condition = in_mathzone }),
-	s({ trig = "mbb" }, fmta("\\mathbb{<>}", { i(1) }), { condition = in_mathzone }),
+	s({ trig = "tit" }, fmta("\\textit{<>}", { d(1, get_visual) }), { condition = in_text }),
+	s({ trig = "tbf" }, fmta("\\textbf{<>}", { d(1, get_visual) }), { condition = in_text }),
+	s({ trig = "mrm" }, fmta("\\mathrm{<>}", { d(1, get_visual) }), { condition = in_mathzone }),
+	s({ trig = "mbf" }, fmta("\\mathbf{<>}", { d(1, get_visual) }), { condition = in_mathzone }),
+	s({ trig = "mbb" }, fmta("\\mathbb{<>}", { d(1, get_visual) }), { condition = in_mathzone }),
 }
