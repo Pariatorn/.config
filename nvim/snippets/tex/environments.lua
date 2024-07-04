@@ -13,7 +13,6 @@ local line_begin = require("luasnip.extras.conditions.expand").line_begin
 local helpers = require("neotex.core.luasnip-helpers")
 local in_text = helpers.in_text
 
--- TODO: add templates for figure, table
 return {
 	s(
 		{ trig = "beg", dscr = "Generic environment" },
@@ -26,6 +25,7 @@ return {
 			{ i(1), i(0), rep(1) }
 		)
 	),
+
 	s(
 		{ trig = "ali", dscr = "Align environment (numbered)" },
 		fmta(
@@ -87,5 +87,77 @@ return {
 			{ i(1, "alph*"), i(0) }
 		),
 		{ condition = line_begin }
+	),
+
+	s(
+		{ trig = "fig", dscr = "Figure environment" },
+		fmta(
+			[[
+        \begin{figure}
+          \centering
+          \includegraphics[width=\textwidth]{<>}
+          \caption{<>}
+          \label{pic:<>}
+        \end{figure}
+      ]],
+			{ i(1, "path"), i(2), i(3) }
+		),
+		{ condition = line_begin }
+	),
+	s(
+		{ trig = "figp", dscr = "Figure environment positioned" },
+		fmta(
+			[[
+        \begin{figure}[<>]
+          \centering
+          \includegraphics[width=\textwidth]{<>}
+          \caption{<>}
+          \label{pic:<>}
+        \end{figure}
+      ]],
+			{ i(1, "h!"), i(2, "path"), i(3), i(4) }
+		),
+		{ condition = line_begin }
+	),
+
+	s(
+		{ trig = "tab", dscr = "Table environment with booktabs" },
+		fmta(
+			[[
+        \begin{table}
+          \centering
+          \caption{<>}
+          \begin{tabular}{<>}
+            \toprule
+            <>
+            \midrule
+            <>
+            \bottomrule
+          \end{tabular}
+          \label{tab:<>}
+        \end{table}
+      ]],
+			{ i(1), i(2, "positions"), i(4), i(0), i(3) }
+		)
+	),
+	s(
+		{ trig = "tabp", dscr = "Table environment with booktabs positioned" },
+		fmta(
+			[[
+        \begin{table}[<>]
+          \centering
+          \caption{<>}
+          \begin{tabular}{<>}
+            \toprule
+            <>
+            \midrule
+            <>
+            \bottomrule
+          \end{tabular}
+          \label{tab:<>}
+        \end{table}
+      ]],
+			{ i(1, "h!"), i(2), i(3, "positions"), i(5), i(0), i(4) }
+		)
 	),
 }
