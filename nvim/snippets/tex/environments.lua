@@ -94,7 +94,7 @@ return {
           \centering
           \includegraphics[width=\textwidth]{<>}
           \caption{<>}
-          \label{pic:<>}
+          \label{fig:<>}
         \end{figure}
       ]],
 			{ i(1, "path"), i(2), i(3) }
@@ -109,7 +109,7 @@ return {
           \centering
           \includegraphics[width=\textwidth]{<>}
           \caption{<>}
-          \label{pic:<>}
+          \label{fig:<>}
         \end{figure}
       ]],
 			{ i(1, "h!"), i(2, "path"), i(3), i(4) }
